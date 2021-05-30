@@ -57,13 +57,5 @@ public class Film {
 		this.id_produsser = id_produsser;
 	}
 
-	/*public void setPublished(boolean isPublished) {
-		this.published = isPublished;
-	}*/
-
-	/*@Override
-	public String toString() {
-		return "Tutorial [id=" + id + ", title=" + title + ", desc=" + description + ", published=" + published + "]";
-	}*/
 
 }

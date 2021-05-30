@@ -22,9 +22,6 @@ public class CustomUserDetailService implements UserDetailsService{
 		if(user == null) throw new UsernameNotFoundException(username);
 		List<SimpleGrantedAuthority> grantedAuthorities = new ArrayList<>();
 		grantedAuthorities.add(new SimpleGrantedAuthority(user.getAuthority()));
-	//	String string="user";
-	//qqqqq
-		System.out.println("CustomUserDetailService---001 "+user.getUsername()+"--->|"+user.getPassword()+"| |" + grantedAuthorities + "|");
 		return new User(user.getUsername(), user.getPassword(), grantedAuthorities);
 	}
 }

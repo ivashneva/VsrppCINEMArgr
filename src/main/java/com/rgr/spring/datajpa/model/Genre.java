@@ -17,10 +17,8 @@ public class Genre {
 
 	}
 
-	public Genre(String title/*, String description, boolean published*/) {
+	public Genre(String title) {
 		this.title = title;
-//		this.description = description;
-//		this.published = published;
 	}
 
 	public long getId() {
@@ -34,15 +32,5 @@ public class Genre {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-
-	/*public void setPublished(boolean isPublished) {
-		this.published = isPublished;
-	}*/
-
-	/*@Override
-	public String toString() {
-		return "Tutorial [id=" + id + ", title=" + title + ", desc=" + description + ", published=" + published + "]";
-	}*/
 
 }

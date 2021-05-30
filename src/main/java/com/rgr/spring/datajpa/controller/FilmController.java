@@ -21,6 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rgr.spring.datajpa.model.Film;
 import com.rgr.spring.datajpa.repository.FilmRepository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+
 @CrossOrigin(origins = "http://localhost:8084")
 @RestController
 @RequestMapping("/api")
@@ -29,27 +33,24 @@ public class FilmController {
 	@Autowired
 	FilmRepository tutorialRepository;
 
+	@PersistenceUnit
+	private EntityManagerFactory emf;
+
 	@GetMapping("/film")
 	public ResponseEntity<List<Film>> getAllTutorials(@RequestParam(required = false) String title) {
-		System.out.println( "getAllTutorials---001: ");
 		try {
-			List<Film> films = new ArrayList<Film>();
 
-			if (title == null)
-				tutorialRepository.findAll().forEach(films::add);
-			else
-				tutorialRepository.findByTitleContaining(title).forEach(films::add);
+			EntityManager em = emf.createEntityManager();
+			List<Film> films = em
+ 					.createQuery("SELECT f.id, f.title, p.title, g.title FROM Film f, Produsser p, Genre g WHERE f.id_genre =g.id and f.id_produsser =p.id")
+					.getResultList();
 
-			if (films.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
 
 			return new ResponseEntity<>(films, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
 
 	@GetMapping("/film/{id}")
 	public ResponseEntity<Film> getTutorialById(@PathVariable("id") long id) {
@@ -80,8 +81,6 @@ public class FilmController {
 		if (tutorialData.isPresent()) {
 			Film _film = tutorialData.get();
 			_film.setTitle(film.getTitle());
-			/*_tutorial.setDescription(tutorial.getDescription());
-			_tutorial.setPublished(tutorial.isPublished());*/
 			return new ResponseEntity<>(tutorialRepository.save(_film), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -108,19 +107,5 @@ public class FilmController {
 		}
 
 	}
-//
-//	@GetMapping("/tutorials/published")
-//	public ResponseEntity<List<Tutorial>> findByPublished() {
-//		try {
-//			List<Tutorial> tutorials = tutorialRepository.findByPublished(true);
-//
-//			if (tutorials.isEmpty()) {
-//				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//			}
-//			return new ResponseEntity<>(tutorials, HttpStatus.OK);
-//		} catch (Exception e) {
-//			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
 
 }

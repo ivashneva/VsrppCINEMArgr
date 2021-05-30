@@ -28,11 +28,7 @@ CREATE TABLE `film` (
     `Name` text,
     `ID_Produsser` int not null,
     `ID_Genre` int not null,
-    PRIMARY KEY (`ID`),
-    KEY `ID_Produsser` (`ID_Produsser`),
-    KEY `ID_Genre` (`ID_Genre`),
-    CONSTRAINT `film1` FOREIGN KEY (`ID_Produsser`) REFERENCES `produsser` (`ID`),
-    CONSTRAINT `film2` FOREIGN KEY (`ID_Genre`) REFERENCES `genre` (`ID`)
+    PRIMARY KEY (`ID`)
 );
 
 INSERT INTO users (Login, Password, Mail, Authority) values 

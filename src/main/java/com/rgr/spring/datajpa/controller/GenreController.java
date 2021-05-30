@@ -21,7 +21,6 @@ public class GenreController {
 
 	@GetMapping("/genre")
 	public ResponseEntity<List<Genre>> getAllTutorials(@RequestParam(required = false) String title) {
-		System.out.println( "getAllTutorials---001: ");
 		try {
 			List<Genre> genreList = new ArrayList<Genre>();
 
@@ -98,19 +97,5 @@ public class GenreController {
 		}
 
 	}
-//
-//	@GetMapping("/tutorials/published")
-//	public ResponseEntity<List<Tutorial>> findByPublished() {
-//		try {
-//			List<Tutorial> tutorials = tutorialRepository.findByPublished(true);
-//
-//			if (tutorials.isEmpty()) {
-//				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//			}
-//			return new ResponseEntity<>(tutorials, HttpStatus.OK);
-//		} catch (Exception e) {
-//			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
 
 }
